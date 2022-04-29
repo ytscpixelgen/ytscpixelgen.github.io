@@ -1,10 +1,35 @@
 .App {
   text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.displayBlock{
+  font-size: calc(2.5vmin);
+  margin: 5px;
+}
+
+.main{
+  font-size: calc(8px + 2vmin);
+}
+.reference{
+  font-size: calc(8px + 1vmin);
+  color: azure;
+}
+.example{
+  margin-left: 15%;
+  margin-right: 15%;
+}
+body{
+  background-color: #282c34;
+  color: white;
+  padding-bottom: 1em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -24,8 +49,25 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.image{
+  margin: 15px;
+  width: 75%;
+}
+
+.column {
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +77,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+textarea {
+  width: 50%;
+  min-height: 100px;
+  max-height: 150px;
+  resize: none; 
 }
