@@ -24,6 +24,7 @@ function App() {
   let pixelThreshold = 200;
   let heightZoomRatio = 1.2;
   let defaultLength = 18;
+  let regexRule = /[0-9A-Z/!/?/+/-]+/g
   const [maxLength, setMaxLength] = useState<number>(defaultLength);
   const [includeSpace, setIncludeSpace] = useState<boolean>(true);
   const [align, setAlign] = useState<string>("left");
@@ -150,7 +151,7 @@ function App() {
   useEffect(() => {
     let input = "";
     if (mode === "eng") {
-      input = inputText.match(/[A-Z/!/?]+/g)?.join("") ?? "";
+      input = inputText.match(regexRule)?.join("") ?? "";
       setOutPutBlock(arrayToPixelv1(input));
     }
     else if (mode === "chi") {
@@ -243,7 +244,7 @@ function App() {
         <div key="setmode">
           <>
             對齊：
-            <label> 純大階({engHeight}格高)，較便宜
+            <label> 英文({engHeight}格高)，較便宜
               <input
                 type="radio"
                 name="mode"
@@ -263,7 +264,7 @@ function App() {
           </>
         </div>
         <div className='reference'>
-          (大階模式只有A-Z及!?；中文模式因寬度限制及洗版問題，建議吹水台才使用)
+          (英文模式只有大階、數字及!?；中文模式因寬度限制及洗版問題，建議吹水台才使用)
         </div>
         <div>
           Chatroom寬度  &nbsp;
