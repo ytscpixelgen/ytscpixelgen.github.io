@@ -85,3 +85,17 @@ textarea {
   max-height: 150px;
   resize: none; 
 }
+
+.useFont{
+  font-family: 'PixelFont'
+}
+
+@font-face {
+  font-family: 'PixelFont';
+  src: url(./asset/font/Pixel.ttf) format('truetype');
+}
+canvas{
+  font-smooth: never;
+  -webkit-font-smoothing : none;
+}
+
