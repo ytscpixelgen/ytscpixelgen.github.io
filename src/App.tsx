@@ -25,7 +25,7 @@ function App() {
   let heightZoomRatio = 1.2;
   let defaultLength = 18;
   let canvaHeight = (chiHeight + 1) * heightZoomRatio;
-  let regexRule = /[0-9A-Z/!/?/+/-]+/g
+  let regexRule = /[0-9A-Z/!/?/+-/. ]+/g
   const [maxLength, setMaxLength] = useState<number>(defaultLength);
   const [includeSpace, setIncludeSpace] = useState<boolean>(true);
   const [align, setAlign] = useState<string>("left");
@@ -281,7 +281,7 @@ function App() {
         <div className="reference">
           (參考：遊戲台時寬度18，吹水台時寬度22)</div>
         <label>
-          包含空格&nbsp;
+          自動包含空格&nbsp;
           <input
             type="checkbox"
             checked={includeSpace}
@@ -323,7 +323,7 @@ function App() {
           </>
         </div>
         <div className='reference'>
-          (中文模式不支援空格及對齊)
+          (中文模式不支援自動空格及對齊)
         </div>
         <div key="div-fg">
           <>

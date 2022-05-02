@@ -39,9 +39,11 @@ class Alphabet {
     [[0, 1, 1, 0], [1, 0, 0, 1], [0, 1, 1, 0], [1, 0, 0, 1], [0, 1, 1, 0]], // 8
     [[0, 1, 1, 0], [1, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 1, 1, 0]], // 9
     [[0, 0, 0], [0, 1, 0], [1, 1, 1], [0, 1, 0], [0, 0, 0]], // +
-    [[0, 0], [0, 0], [1, 1], [0, 0], [0, 0]] // -
+    [[0, 0], [0, 0], [1, 1], [0, 0], [0, 0]], // -
+    [[0], [0], [0], [0], [1]], // .
+    [[0], [0], [0], [0], [0]] // .
   ];
-  static alphabetChar: Array<string> = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!?0123456789+-'.split('');
+  static alphabetChar: Array<string> = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!?0123456789+-. '.split('');
   static alphabetZip: { [key: string]: Array<Array<any>>; } = Object.fromEntries(this.alphabetChar.map((k, i) => [k, this.alphabetPixel[i]]));
 }
 
