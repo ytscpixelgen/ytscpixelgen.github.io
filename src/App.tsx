@@ -20,10 +20,11 @@ declare global {
 function App() {
   // ABCDEFGHIJKLMNOPQRSTUVWXYZ
   let [minWidth, maxWidth] = [15, 30];
-  let [engHeight, chiHeight] = [5, 10];
+  let [engHeight, chiHeight] = [5, 9];
   let pixelThreshold = 200;
   let heightZoomRatio = 1.2;
   let defaultLength = 18;
+  let canvaHeight = (chiHeight + 1) * heightZoomRatio;
   let regexRule = /[0-9A-Z/!/?/+/-]+/g
   const [maxLength, setMaxLength] = useState<number>(defaultLength);
   const [includeSpace, setIncludeSpace] = useState<boolean>(true);
@@ -222,7 +223,7 @@ function App() {
     <div className="App">
       <div>
         <canvas hidden ref={canvasRef}
-          height={chiHeight * heightZoomRatio}
+          height={canvaHeight}
           width={maxLength}
           className="useFont" />
       </div>
