@@ -25,7 +25,7 @@ function App() {
   let heightZoomRatio = 1.2;
   let defaultLength = 18;
   let canvaHeight = (chiHeight + 1) * heightZoomRatio;
-  let regexRule = /[0-9A-Z/!/?/+-/. <>/*///(/)/{/}\[\]\:]+/g
+  let regexRule = /[0-9A-Z\!\?\+-\.\ ,<>\*\/\(\)\{\}\[\]\:\=]+/g
   const [maxLength, setMaxLength] = useState<number>(defaultLength);
   const [includeSpace, setIncludeSpace] = useState<boolean>(true);
   const [align, setAlign] = useState<string>("left");
