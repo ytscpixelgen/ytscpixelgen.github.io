@@ -10,10 +10,10 @@ class SC {
   public static getLoc(charCount: number): string{
       let loc = bisect(this.SCWordCount, charCount);
       if (loc === this.SCPrice.length) {
-        return "Message is being too long"
+        return "超出上限，可以考慮使用黑白色代替其他顏色"
       }
       else {
-        return `${this.SCPrice[loc]}`
+        return `$${this.SCPrice[loc]} HKD`
       }
     };
   }

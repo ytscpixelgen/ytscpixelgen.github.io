@@ -19,7 +19,7 @@ declare global {
 }
 function App() {
   // ABCDEFGHIJKLMNOPQRSTUVWXYZ
-  let [minWidth, maxWidth] = [15, 30];
+  let [minWidth, maxWidth] = [8, 30];
   let [engHeight, chiHeight] = [5, 9];
   let pixelThreshold = 200;
   let heightZoomRatio = 1.2;
@@ -367,7 +367,7 @@ function App() {
         </div>
         <textarea value={outputText} readOnly></textarea>
         <div>最低字數 = {outputLength}</div>
-        <div>最低金額 = ${outputAmount} HKD</div>
+        <div>最低金額 = {outputAmount}</div>
       </div>
       <div className='reference'>
         要成功發送Superchat，需要在貼上圖案後加上中文字句。<br />否則會出現「無法傳送訊息。請編輯訊息後再試一次。」
