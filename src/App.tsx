@@ -9,6 +9,7 @@ import { Color } from './class/color';
 import { useForm } from "react-hook-form";
 import { InputText } from './type/input';
 import { reshape2D } from './func/reshape';
+import Signature from './component/signature';
 import SC from './class/sc';
 import width22 from './asset/width22.png';
 import width18 from './asset/width18.png';
@@ -373,7 +374,7 @@ function App() {
         要成功發送Superchat，需要在貼上圖案後加上中文字句。<br />否則會出現「無法傳送訊息。請編輯訊息後再試一次。」
       </div>
       <div className='example'>
-        <div className='row'>
+        <div className='flexContainer'>
           <div className='column'>
             <div>
               <div><img src={width22} alt="width22" className='image' /></div>
@@ -388,6 +389,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Signature />
     </div>
 
   );

@@ -49,16 +49,10 @@ body{
   color: white;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
 
 .image{
   margin: 15px;
-  width: 75%;
+  width: 80%;
 }
 
 .column {
@@ -70,12 +64,23 @@ body{
   flex: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.flexContainer {
+  display: block;
+}
+
+@media only screen and (min-width: 1024px) {
+  .flexContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
   }
 }
 
