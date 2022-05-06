@@ -76,16 +76,16 @@ function App() {
           // ctx.canvas.style.letterSpacing = '1px'
           let x = 0;
           switch (align) {
-            case "right":
-              x = canvas.width;
-              ctx.textAlign = 'right';
-              ctx.fillText(inputText, x, 0);
-              break;
-            case "center":
-              x = canvas.width / 2;
-              ctx.textAlign = 'center';
-              ctx.fillText(inputText, x, 0);
-              break;
+            // case "right":
+            //   x = canvas.width;
+            //   ctx.textAlign = 'right';
+            //   ctx.fillText(inputText, x, 0);
+            //   break;
+            // case "center":
+            //   x = canvas.width / 2;
+            //   ctx.textAlign = 'center';
+            //   ctx.fillText(inputText, x, 0);
+            //   break;
             case "left":
             default:
               x = 0;
