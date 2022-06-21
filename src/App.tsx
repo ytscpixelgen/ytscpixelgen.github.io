@@ -13,6 +13,8 @@ import Signature from './component/signature';
 import SC from './class/sc';
 import width22 from './asset/width22.png';
 import width18 from './asset/width18.png';
+import width15_new from './asset/width15_new.png';
+import width18_new from './asset/width18_new.png';
 declare global {
   interface Array<T> {
     reshape(rows: number, cols: number): Array<Array<T>>;
@@ -24,7 +26,7 @@ function App() {
   let [engHeight, chiHeight] = [5, 9];
   let pixelThreshold = 200;
   let heightZoomRatio = 1.2;
-  let defaultLength = 18;
+  let defaultLength = 22;
   let canvaHeight = (chiHeight + 1) * heightZoomRatio;
   let regexRule = /[0-9A-Z\!\?\+\-\.\ \,<>\*\/\(\)\{\}\[\]\:\=]+/g
   const [maxLength, setMaxLength] = useState<number>(defaultLength);
@@ -241,7 +243,7 @@ function App() {
             })}
           />
           <button type="submit">生成圖案</button>
-          {/* <button type="button" onClick={onTestBlockClicked}>  生成測試圖案 </button> */}
+          <button type="button" onClick={onTestBlockClicked}>  生成測試圖案 </button>
         </form>
         <div key="setmode">
           <>
@@ -280,7 +282,8 @@ function App() {
           </select>
         </div>
         <div className="reference">
-          (參考：遊戲台時寬度18，吹水台時寬度22)</div>
+          (參考：(20220622更新)遊戲台時寬度15，吹水台時寬度18
+          <br />(舊)遊戲台時寬度18，吹水台時寬度22)</div>
         <label>
           自動包含空格&nbsp;
           <input
@@ -374,6 +377,20 @@ function App() {
         要成功發送Superchat，需要在貼上圖案後加上中文字句。<br />否則會出現「無法傳送訊息。請編輯訊息後再試一次。」
       </div>
       <div className='example'>
+        <div className='flexContainer'>
+          <div className='column'>
+            <div>
+              <div><img src={width15_new} alt="width15_new" className='image' /></div>
+              <div>20220622測試：遊戲台寬度15</div>
+            </div>
+          </div>
+          <div className='column'>
+            <div>
+              <div><img src={width18_new} alt="width18_new" className='image' /></div>
+              <div>20220618測試：吹水台寬度18</div>
+            </div>
+          </div>
+        </div>
         <div className='flexContainer'>
           <div className='column'>
             <div>
