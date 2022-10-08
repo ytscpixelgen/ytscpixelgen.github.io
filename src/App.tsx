@@ -26,9 +26,9 @@ function App() {
   let [engHeight, chiHeight] = [5, 9];
   let pixelThreshold = 200;
   let heightZoomRatio = 1.2;
-  let defaultLength = 22;
+  let defaultLength = 18;
   let canvaHeight = (chiHeight + 1) * heightZoomRatio;
-  let regexRule = /[0-9A-Z\!\?\+\-\.\ \,<>\*\/\(\)\{\}\[\]\:\=]+/g
+  let regexRule = /[0-9A-Z\!\?\+\-\.\ \,<>\*\/\(\)\{\}\[\]\:\=]+/g;
   const [maxLength, setMaxLength] = useState<number>(defaultLength);
   const [includeSpace, setIncludeSpace] = useState<boolean>(true);
   const [align, setAlign] = useState<string>("left");
@@ -43,7 +43,7 @@ function App() {
   const { register, handleSubmit } = useForm<InputText>({ shouldUseNativeValidation: true });
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [textToPixel, setTextToPixel] = useState<number[][]>([[]]);
-  const isFontListLoaded  = useFontFaceObserver([
+  const isFontListLoaded = useFontFaceObserver([
     {
       family: `PixelFont`
     },
@@ -69,30 +69,68 @@ function App() {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
-      if (isFontListLoaded){ 
+      const splitChar = inputText.split('');
+      if (isFontListLoaded) {
         if (ctx) {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.font = `${canvas.height}px PixelFont`;
           ctx.textBaseline = "top";
           ctx.fillStyle = "#FFFFFF";
+          ctx.textAlign = 'left';
+          let space = includeSpace ? 1 : 0;
           // ctx.canvas.style.letterSpacing = '1px'
           let x = 0;
+          let canvaWidth = canvas.width;
+          let charArray: [string, number][] = [];
+          let totalWidth = 0;
           switch (align) {
-            // case "right":
-            //   x = canvas.width;
-            //   ctx.textAlign = 'right';
-            //   ctx.fillText(inputText, x, 0);
-            //   break;
-            // case "center":
-            //   x = canvas.width / 2;
-            //   ctx.textAlign = 'center';
-            //   ctx.fillText(inputText, x, 0);
-            //   break;
+            case "right":
+              // x = 0;
+              splitChar.forEach((each, index) => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let metric = ctx.measureText(each);
+                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxRight);
+                totalWidth += charWidth;
+                if (!(index === 0)) {
+                  totalWidth += space;
+                }
+                x = canvaWidth - totalWidth;
+                charArray.push([each, charWidth]);
+                charArray.forEach((e) => { 
+                  ctx.fillText(e[0], x, 0);
+                  x = x + e[1] + space;
+                })
+              });
+              break;
+            case "center":
+              splitChar.forEach((each, index) => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let metric = ctx.measureText(each);
+                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxRight);
+                totalWidth += charWidth;
+                if (!(index === 0)) {
+                  totalWidth += space;
+                }
+                let remainLength = maxLength - totalWidth;
+                let leftPadding = Math.ceil(remainLength / 2);
+                x = leftPadding;
+                charArray.push([each, charWidth]);
+                charArray.forEach((e) => { 
+                  ctx.fillText(e[0], x, 0);
+                  x = x + e[1] + space;
+                })
+              });
+              break;
             case "left":
             default:
               x = 0;
               ctx.textAlign = 'left';
-              ctx.fillText(inputText, x, 0);
+              splitChar.forEach((each, index) => {
+                let metric = ctx.measureText(each);
+                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxLeft + metric.actualBoundingBoxRight);
+                ctx.fillText(each, x, 0);
+                x = x + charWidth + space;
+              });
           }
           let data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
           let singleChannel = data.filter((v: any, index: number) => index % 4 === 3).map((val: any) => { return (val > pixelThreshold) ? 1 : 0; });
@@ -172,7 +210,6 @@ function App() {
         let fillText = "";
         let oparray = textToPixel;
         fillText = oparray[i].join('');
-
         let displayText = fillText.replaceAll('1', fgColor.color).replaceAll('0', bgColor.color);
 
         charDisplay.push(displayText);
@@ -282,7 +319,8 @@ function App() {
           </select>
         </div>
         <div className="reference">
-          (參考：(20220622更新)遊戲台時寬度15，吹水台時寬度18
+          (參考：(202201009更新)吹水台時寬度18，未測試遊戲台時寬度
+          <br />(20220622更新)遊戲台時寬度15，吹水台時寬度18
           <br />(舊)遊戲台時寬度18，吹水台時寬度22)</div>
         <label>
           自動包含空格&nbsp;
@@ -290,7 +328,7 @@ function App() {
             type="checkbox"
             checked={includeSpace}
             onChange={handleSpaceChange}
-            disabled={mode === "chi"}
+          // disabled={mode === "chi"}
           />
         </label>
         <div key="setalign">
@@ -302,7 +340,7 @@ function App() {
                 name="alignment"
                 value="left"
                 defaultChecked
-                disabled={mode === "chi"}
+                // disabled={mode === "chi"}
                 onChange={handleAlignChange}
               />
             </label>
@@ -311,7 +349,7 @@ function App() {
                 type="radio"
                 name="alignment"
                 value="center"
-                disabled={mode === "chi"}
+                // disabled={mode === "chi"}
                 onChange={handleAlignChange}
               />
             </label>
@@ -320,7 +358,7 @@ function App() {
                 type="radio"
                 name="alignment"
                 value="right"
-                disabled={mode === "chi"}
+                // disabled={mode === "chi"}
                 onChange={handleAlignChange}
               />
             </label>
@@ -376,12 +414,15 @@ function App() {
       <div className='reference'>
         要成功發送Superchat，需要在貼上圖案後加上中文字句。<br />否則會出現「無法傳送訊息。請編輯訊息後再試一次。」
       </div>
+      <div className='reference'>
+        使用方法：先生成測試圖案用作測試聊天室寬度(參考下圖)，調整寬度後再輸入文字，最後生成圖案。
+      </div>
       <div className='example'>
         <div className='flexContainer'>
           <div className='column'>
             <div>
               <div><img src={width15_new} alt="width15_new" className='image' /></div>
-              <div>20220622測試：遊戲台寬度15</div>
+              <div>20220622測試：遊戲台寬度15 (不建議在遊戲台時使用)</div>
             </div>
           </div>
           <div className='column'>
