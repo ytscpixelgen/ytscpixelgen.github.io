@@ -86,39 +86,39 @@ function App() {
           switch (align) {
             case "right":
               // x = 0;
-              splitChar.forEach((each, index) => {
+              charArray = splitChar.map((each, index) => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 let metric = ctx.measureText(each);
-                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxRight);
+                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxLeft + metric.actualBoundingBoxRight);
                 totalWidth += charWidth;
                 if (!(index === 0)) {
                   totalWidth += space;
                 }
                 x = canvaWidth - totalWidth;
-                charArray.push([each, charWidth]);
-                charArray.forEach((e) => { 
-                  ctx.fillText(e[0], x, 0);
-                  x = x + e[1] + space;
-                })
+                return [each, charWidth];
+              });
+              charArray.forEach((e) => {
+                ctx.fillText(e[0], x, 0);
+                x = x + e[1] + space;
               });
               break;
             case "center":
-              splitChar.forEach((each, index) => {
+              charArray = splitChar.map((each, index) => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 let metric = ctx.measureText(each);
-                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxRight);
+                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxLeft + metric.actualBoundingBoxRight);
                 totalWidth += charWidth;
                 if (!(index === 0)) {
                   totalWidth += space;
                 }
-                let remainLength = maxLength - totalWidth;
+                let remainLength = canvaWidth - totalWidth;
                 let leftPadding = Math.ceil(remainLength / 2);
                 x = leftPadding;
-                charArray.push([each, charWidth]);
-                charArray.forEach((e) => { 
-                  ctx.fillText(e[0], x, 0);
-                  x = x + e[1] + space;
-                })
+                return [each, charWidth];
+              });
+              charArray.forEach((e) => {
+                ctx.fillText(e[0], x, 0);
+                x = x + e[1] + space;
               });
               break;
             case "left":
