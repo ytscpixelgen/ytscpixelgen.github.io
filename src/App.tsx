@@ -89,7 +89,7 @@ function App() {
               charArray = splitChar.map((each, index) => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 let metric = ctx.measureText(each);
-                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxLeft + metric.actualBoundingBoxRight);
+                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxRight - metric.actualBoundingBoxLeft);
                 totalWidth += charWidth;
                 if (!(index === 0)) {
                   totalWidth += space;
@@ -106,7 +106,7 @@ function App() {
               charArray = splitChar.map((each, index) => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 let metric = ctx.measureText(each);
-                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxLeft + metric.actualBoundingBoxRight);
+                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxRight - metric.actualBoundingBoxLeft);
                 totalWidth += charWidth;
                 if (!(index === 0)) {
                   totalWidth += space;
@@ -127,7 +127,8 @@ function App() {
               ctx.textAlign = 'left';
               splitChar.forEach((each, index) => {
                 let metric = ctx.measureText(each);
-                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxLeft + metric.actualBoundingBoxRight);
+                console.log(metric);
+                let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxRight - metric.actualBoundingBoxLeft);
                 ctx.fillText(each, x, 0);
                 x = x + charWidth + space;
               });
