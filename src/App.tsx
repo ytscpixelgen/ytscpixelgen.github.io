@@ -127,7 +127,6 @@ function App() {
               ctx.textAlign = 'left';
               splitChar.forEach((each, index) => {
                 let metric = ctx.measureText(each);
-                console.log(metric);
                 let charWidth = each === " " ? 1 : Math.ceil(metric.actualBoundingBoxRight - metric.actualBoundingBoxLeft);
                 ctx.fillText(each, x, 0);
                 x = x + charWidth + space;
